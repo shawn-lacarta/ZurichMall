@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Store {
     private ArrayList<Product> products = new ArrayList<>();
-
+    private String name;
     public String getName() {
         return name;
     }
@@ -17,7 +17,7 @@ public class Store {
         this.name = name;
     }
 
-    private String name;
+
     public ArrayList<Product> getProducts() {
         return products;
     }
