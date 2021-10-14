@@ -1,7 +1,17 @@
 package my.project;
 
+/**
+ * This class has all the fix output of the program.
+ * @author shawn
+ */
 public class IO {
 
+    /**
+     * This method is for my border box. I implemented this method so i can give my program a
+     * nicer look. I use my border box for menus for the user.
+     * @param strings
+     * @param mode
+     */
     public static void outPutListInBox(String[] strings, int mode) {
         int borderLength = 0;
 
@@ -49,6 +59,10 @@ public class IO {
 
     }
 
+    /**
+     * This method is to print the map for the first floor.
+     *
+     */
     public void printFirstFloor() {
         System.out.println(Manager.ANSI_YELLOW + "1st floor map" + Manager.ANSI_RESET);
         System.out.println("╔═════════════╦══════════╦════════════════════╗\n" +
@@ -82,6 +96,10 @@ public class IO {
                );
     }
 
+    /**
+     * This method is to print the map for the second floor.
+     *
+     */
     public void printSecondFloor() {
         System.out.println(Manager.ANSI_YELLOW + "2nd floor map" + Manager.ANSI_RESET);
         System.out.println("╔═════════════╦══════════╦════════════════════╗\n" +
@@ -115,12 +133,19 @@ public class IO {
 
     }
 
+    /**
+     * This method is to print the stores in the first floor.
+     *
+     */
     public void storesFirstFloor() {
         outPutListInBox(new String[]{"1st floor: ", " ", "[1] nike", "[2] foot locker", "[3] star bucks", "[4] mobile zone", "[5] lacoste", "[6] zara"}, 2);
     }
 
+    /**
+     * This method is to print the stores in the second floor.
+     */
     public void storesSecondFloor() {
-        outPutListInBox(new String[]{"2nd floor: ", " ", "[1] media markt", "[2] migro", "[3] mc donalds", "[4] ice box"}, 2);
+        outPutListInBox(new String[]{"2nd floor: ", " ", "[1] media markt", "[2] migros", "[3] mc donalds", "[4] ice box"}, 2);
     }
 
 }
