@@ -74,25 +74,25 @@ public class Manager {
         s.createShoppingCenter();
         currentLocation = findHallway(s.getFloors().get(0));
 
-        while (!(input.equals("enter") || input.equals("work"))) {
-            do {
-                IO.outPutListInBox(new String[]{"to enter the mall spell enter / to work spell work / to leave spell exit: "}, 2);
-                input = scan.nextLine();
+        while (!(input.equals("enter"))) {
 
-                switch (input) {
-                    case "enter" -> System.out.println(ANSI_BLUE + " _    _      _                            _          _   _            ______           _      _      ___  ___      _ _ \n" +
-                            "| |  | |    | |                          | |        | | | |          |___  /          (_)    | |     |  \\/  |     | | |\n" +
-                            "| |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___     / / _   _ _ __ _  ___| |__   | .  . | __ _| | |\n" +
-                            "| |/\\| |/ _ | |/ __/ _ \\| '_ ` _ \\ / _ \\ | __/ _ \\  | __| '_ \\ / _ \\   / / | | | | '__| |/ __| '_ \\  | |\\/| |/ _` | | |\n" +
-                            "\\  /\\  |  __| | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/ ./ /__| |_| | |  | | (__| | | | | |  | | (_| | | |\n" +
-                            " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  \\__\\___/   \\__|_| |_|\\___| \\_____/\\__,_|_|  |_|\\___|_| |_| \\_|  |_/\\__,_|_|_|\n" +
-                            "                                                                                                                       \n" +
-                            "                                                                                                                       " + ANSI_RESET);
-                    case "work" -> goWork();
-                    case "exit" -> System.exit(0);
-                    default -> System.out.println("wrong input");
-                }
-            }while(!input.equals("enter"));
+            IO.outPutListInBox(new String[]{"to enter the mall spell enter / to work spell work / to leave spell exit: "}, 2);
+            input = scan.nextLine();
+
+            switch (input) {
+                case "enter" -> System.out.println(ANSI_BLUE + " _    _      _                            _          _   _            ______           _      _      ___  ___      _ _ \n" +
+                        "| |  | |    | |                          | |        | | | |          |___  /          (_)    | |     |  \\/  |     | | |\n" +
+                        "| |  | | ___| | ___ ___  _ __ ___   ___  | |_ ___   | |_| |__   ___     / / _   _ _ __ _  ___| |__   | .  . | __ _| | |\n" +
+                        "| |/\\| |/ _ | |/ __/ _ \\| '_ ` _ \\ / _ \\ | __/ _ \\  | __| '_ \\ / _ \\   / / | | | | '__| |/ __| '_ \\  | |\\/| |/ _` | | |\n" +
+                        "\\  /\\  |  __| | (_| (_) | | | | | |  __/ | || (_) | | |_| | | |  __/ ./ /__| |_| | |  | | (__| | | | | |  | | (_| | | |\n" +
+                        " \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___|  \\__\\___/   \\__|_| |_|\\___| \\_____/\\__,_|_|  |_|\\___|_| |_| \\_|  |_/\\__,_|_|_|\n" +
+                        "                                                                                                                       \n" +
+                        "                                                                                                                       " + ANSI_RESET);
+                case "work" -> goWork();
+                case "exit" -> System.exit(0);
+                default -> System.out.println("wrong input");
+            }
+
         }
         move();
 
@@ -104,8 +104,8 @@ public class Manager {
      */
     public void move() {
         IO o = new IO();
-        int selectMovement = 0;
-        while (selectMovement < 1 || selectMovement > 4) {
+        int selectMovement = 1;
+        while (selectMovement >= 1 && selectMovement <= 5) {
             IO.outPutListInBox(new String[]{"[1] shopping", "[2] our stores", "[3] map", "[4] shop other floor", "[5] exit",}, 2);
             try {
                 selectMovement = scan.nextInt();
@@ -156,7 +156,7 @@ public class Manager {
                 default -> System.out.println("wrong input");
             }
         } while (storeMovement != 'l');
-        printCurrentPosition();
+
     }
 
     /**
@@ -246,15 +246,13 @@ public class Manager {
         System.out.println("what do you want to buy: ");
         scan.nextLine();
         String input = scan.nextLine();
-        if (budget < 0) {
+
             currentLocation.getProducts().forEach(product -> {
                 if (input.equals(product.getName())) {
                     budget -= product.getPrice();
                 }
             });
-        } else {
-            System.out.println(ANSI_RED + "NO MONEY" + ANSI_RESET);
-        }
+
         budget = Math.round(budget / 0.05) * 0.05;
         System.out.printf("new budget: %.2f\n", budget);
 
