@@ -27,6 +27,8 @@ public class Manager {
     }
 
 
+
+
     /**
      * This method is to find the hallway. Everytime the user wants to leave the store or change the
      * floor, the user must be in the hallway.
@@ -70,9 +72,9 @@ public class Manager {
         Scanner scan = new Scanner(System.in);
 
         if (s.getFloors().indexOf(findFloor(currentLocation)) == 0) {
-            io.storesFirstFloor();
-        } else {
             io.storesSecondFloor();
+        } else {
+            io.storesFirstFloor();
         }
         System.out.println("store: ");
         int chooseStore = scan.nextInt();

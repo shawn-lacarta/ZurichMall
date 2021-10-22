@@ -8,10 +8,10 @@ import java.util.Scanner;
  */
 public class IO {
 
-    public static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RESET = "\u001B[0m";
     private Scanner scan = new Scanner(System.in);
     private final int CLEANING_SERVICE = 500;
     private final int GARBAGE_COLLECTOR = 850;
@@ -26,6 +26,7 @@ public class IO {
     public IO(ShoppingCenter s, Manager m) {
         this.s = s;
         this.m = m;
+
     }
 
     /**
@@ -173,7 +174,7 @@ public class IO {
      *
      */
     public void enterStore() {
-        Floor currentFloor;
+        Floor currentFloor ;
         char storeMovement;
         currentLocation = m.findHallway(currentFloor = m.findFloor(currentLocation));
         m.findStore(currentFloor);
