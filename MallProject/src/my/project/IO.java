@@ -3,7 +3,8 @@ package my.project;
 import java.util.Scanner;
 
 /**
- * This class has all the fix output of the program.
+ * This class is responsible for the in/output. Any method that has
+ * something to do with the user is implemented here.
  * @author shawn
  */
 public class IO {
@@ -23,6 +24,7 @@ public class IO {
     private Manager m;
     private Store currentLocation;
 
+
     public IO(ShoppingCenter s, Manager m) {
         this.s = s;
         this.m = m;
@@ -30,8 +32,8 @@ public class IO {
     }
 
     /**
-     * This method is for my border box. I implemented this method so i can give my program a
-     * nicer look. I use my border box for menus for the user.
+     * This method is for my border box. I use this border box for
+     * my menus. The different selections are framed with this method.
      * @param strings
      * @param mode
      */
@@ -39,7 +41,7 @@ public class IO {
         int borderLength = 0;
 
         int i;
-        for(i = 0; i < strings.length; ++i) {
+        for (i = 0; i < strings.length; ++i) {
             if (i == 0 || strings[i].length() + 3 > borderLength) {
                 borderLength = strings[i].length() + 3;
             }
@@ -49,9 +51,9 @@ public class IO {
         line(borderLength + 1);
         System.out.println("╗");
 
-        for(i = 0; i < strings.length; ++i) {
+        for (i = 0; i < strings.length; ++i) {
             System.out.print("║");
-            switch(mode) {
+            switch (mode) {
                 case 1:
                     System.out.print(" " + (i + 1) + ". " + strings[i]);
                     break;
@@ -62,7 +64,7 @@ public class IO {
                     System.out.print(" •  " + strings[i]);
             }
 
-            for(int j = 0; j < borderLength - strings[i].length(); ++j) {
+            for (int j = 0; j < borderLength - strings[i].length(); ++j) {
                 System.out.print(" ");
             }
 
@@ -75,39 +77,40 @@ public class IO {
         System.out.println("╝");
     }
 
+    /**
+     * This method is used to separate the border boxes. It
+     * is implemented in the outPutListInBox method.
+     * @param length
+     */
     private static void line(int length) {
-        for(int i = 0; i < length; ++i) {
+        for (int i = 0; i < length; ++i) {
             System.out.print("═");
         }
 
     }
 
     /**
-     * The user can choose his profession in this method by entering a number, which is stored a
-     * profession. Depending on the profession, the budget is set to a different value.
-     *
+     * With this method, the user can select an occupation. Depending
+     * on the selection, the user gets another budget.
      */
     public void professionChoice() {
         int input = 0;
-        while (input < 1 || input > 5) {
-            IO.outPutListInBox(new String[]{"choose your profession: ", " ", "[1] cleaning service", "[2] garbage collector", "[3] office worker", "[4] investor", "[5] CEO"}, 2);
-            input = m.readInt();
-            switch (input) {
-                case 1 -> budget = CLEANING_SERVICE;
-                case 2 -> budget = GARBAGE_COLLECTOR;
-                case 3 -> budget = OFFICE_WORKER;
-                case 4 -> budget = INVESTOR;
-                case 5 -> budget = CEO;
-                default -> System.out.println("wrong input");
-            }
+        IO.outPutListInBox(new String[]{"choose your profession: ", " ", "[1] cleaning service", "[2] garbage collector", "[3] office worker", "[4] investor", "[5] CEO"}, 2);
+        input = readRangedInt(1, 5);
+        switch (input) {
+            case 1 -> budget = CLEANING_SERVICE;
+            case 2 -> budget = GARBAGE_COLLECTOR;
+            case 3 -> budget = OFFICE_WORKER;
+            case 4 -> budget = INVESTOR;
+            case 5 -> budget = CEO;
+            default -> System.out.println("wrong input");
         }
         System.out.println(ANSI_RED + "your budget: " + budget + " CHF" + ANSI_RESET);
     }
 
     /**
-     * Here the user can decide whether to enter the mall or prefer to work. The
-     * user decides by spelling out enter or work.
-     *
+     * In this method, the user can decide whether to enter the
+     * mall, work or close the program.
      */
     public void enterMall() {
         String input = " ";
@@ -138,15 +141,15 @@ public class IO {
     }
 
     /**
-     * This method is to move around the mall. Depending on the user input, different methods are used.
-     *
+     * This method is where the user can move around inside the mall. The user
+     * can shop, get a list of stores, view the map, change the floor or
+     * exit the mall.
      */
     public void move() {
-
         int selectMovement = 1;
-        while (selectMovement >= 1 && selectMovement <= 5) {
+        while (true) {
             IO.outPutListInBox(new String[]{"[1] shopping", "[2] our stores", "[3] map", "[4] shop other floor", "[5] exit",}, 2);
-            selectMovement = m.readInt();
+            selectMovement = readRangedInt(1, 5);
             switch (selectMovement) {
                 case 1 -> enterStore();
                 case 2 -> {
@@ -169,12 +172,11 @@ public class IO {
     }
 
     /**
-     * When the user decides to enter a store, this method is used. The user
-     * can decide whether to buy something or leave the store
-     *
+     * When the user decides to enter a store he will come
+     * in this method. Here the user can decide to buy or leave the store.
      */
     public void enterStore() {
-        Floor currentFloor ;
+        Floor currentFloor;
         char storeMovement;
         currentLocation = m.findHallway(currentFloor = m.findFloor(currentLocation));
         m.findStore(currentFloor);
@@ -193,8 +195,8 @@ public class IO {
     }
 
     /**
-     * This method is to choose, which item the user wants to buy.
-     *
+     * This method is responsible for the items. Depend on the store, different
+     * items will be shown on the program.
      */
     public void items() {
         currentLocation.getProducts().forEach(product -> {
@@ -217,17 +219,14 @@ public class IO {
     }
 
     /**
-     * This method is used to print the current location.
-     *
+     * This method is to print the current location.
      */
     public void printCurrentPosition() {
         System.out.println(ANSI_BLUE + "current location: " + ANSI_RESET + (1 + s.getFloors().indexOf(m.findFloor(currentLocation))) + " floor" + " " + currentLocation.getName());
     }
 
-
     /**
-     * This method is to print the map for the first floor.
-     *
+     * This method is to print the map of the first floor.
      */
     public void printFirstFloor() {
         System.out.println(ANSI_YELLOW + "1st floor map" + ANSI_RESET);
@@ -259,12 +258,11 @@ public class IO {
                 "║             ║          ║                    ║\n" +
                 "║             ║          ║                    ║   \n" +
                 "╚═════════════╝          ╚════════════════════╝\n"
-               );
+        );
     }
 
     /**
-     * This method is to print the map for the second floor.
-     *
+     * This method is to print the map of the second floor.
      */
     public void printSecondFloor() {
         System.out.println(ANSI_YELLOW + "2nd floor map" + ANSI_RESET);
@@ -300,18 +298,69 @@ public class IO {
     }
 
     /**
-     * This method is to print the stores in the first floor.
-     *
+     * This method is to print the stores within the first floor.
      */
     public void storesFirstFloor() {
         outPutListInBox(new String[]{"1st floor: ", " ", "[1] nike", "[2] foot locker", "[3] star bucks", "[4] mobile zone", "[5] lacoste", "[6] zara"}, 2);
     }
 
     /**
-     * This method is to print the stores in the second floor.
+     * This method is to print the stores within the second floor.
      */
     public void storesSecondFloor() {
         outPutListInBox(new String[]{"2nd floor: ", " ", "[1] media markt", "[2] migros", "[3] mc donalds", "[4] ice box"}, 2);
     }
 
+    /**
+     * This method is responsible for the validation of Integers. If the
+     * user input is not an Integer it will be parsed to an int.
+     * @return It will return input. Input is the parsed value.
+     */
+    public static int readInt() {
+        Scanner scan = new Scanner(System.in);
+        int input = 0;
+        boolean isValid = false;
+        while (!isValid) {
+            try {
+                input = Integer.parseInt(scan.nextLine());
+                isValid = true;
+            } catch (NumberFormatException e) {
+                System.out.println("wrong input");
+            }
+        }
+        return input;
+    }
+
+    /**
+     * This method is responsible for the validation of the min and
+     * max value of the user inputs. In this method i can define the range
+     * of the user inputs.
+     * @param min This parameter is responsible for the min value.
+     * @param max This parameter is responsible for the max value.
+     * @return This method returns the readInt method.
+     */
+    public static int readRangedInt(int min, int max) {
+        int input = readInt();
+        while (input < min || input > max) {
+            System.out.println("wrong input");
+            input = readInt();
+        }
+        return input;
+    }
+
+    public double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(double budget) {
+        this.budget = budget;
+    }
+
+    public Store getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(Store currentLocation) {
+        this.currentLocation = currentLocation;
+    }
 }
