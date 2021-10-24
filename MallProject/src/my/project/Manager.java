@@ -87,7 +87,7 @@ public class Manager {
     }
 
     /**
-     * This method is used for the user to work. 
+     * This method is used for the user to work.
      */
     public void goWork() {
         Random r = new Random();

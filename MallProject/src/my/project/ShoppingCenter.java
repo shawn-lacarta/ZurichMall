@@ -16,7 +16,6 @@ public class ShoppingCenter {
 
     /**
      * This method is the creating of my mall. I'm creating the floors, stores and products.
-     *
      */
     public void createShoppingCenter() {
         getFloors().add(new Floor());
