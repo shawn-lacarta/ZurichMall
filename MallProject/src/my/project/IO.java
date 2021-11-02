@@ -1,5 +1,9 @@
 package my.project;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -230,35 +234,7 @@ public class IO {
      */
     public void printFirstFloor() {
         System.out.println(ANSI_YELLOW + "1st floor map" + ANSI_RESET);
-        System.out.println("╔═════════════╦══════════╦════════════════════╗\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║                               ║\n" +
-                "║   star                 ║        zara        ║\n" +
-                "║   bucks     ║          ║                    ║\n" +
-                "║             ║          ║                    ║ \n" +
-                "║             ║          ║                    ║\n" +
-                "╠═════════════╝          ╚═══════════ ════════╣\n" +
-                "║                                             ║\n" +
-                "║                                             ║\n" +
-                "║                                             ║ \n" +
-                "║                                             ║    \n" +
-                "╠═════ ═══════╗          ╔════════════════════╣\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║   mobile               ║       foot         ║ \n" +
-                "║   zone      ║          ║       locker       ║\n" +
-                "║             ║                               ║\n" +
-                "║             ║          ║                    ║\n" +
-                "╠═════════════╣          ╠════════════════════╣ \n" +
-                "║             ║          ║                    ║\n" +
-                "║                        ║                    ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║   lacoste   ║                   nike        ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║   \n" +
-                "╚═════════════╝          ╚════════════════════╝\n"
-        );
+        System.out.println(readFloor("firstFloor.txt"));
     }
 
     /**
@@ -266,34 +242,7 @@ public class IO {
      */
     public void printSecondFloor() {
         System.out.println(ANSI_YELLOW + "2nd floor map" + ANSI_RESET);
-        System.out.println("╔═════════════╦══════════╦════════════════════╗\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║                               ║\n" +
-                "║    zara                ║        migros      ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║ \n" +
-                "║             ║          ║                    ║\n" +
-                "╠═════════════╝          ╚═══════════ ════════╣\n" +
-                "║                                             ║\n" +
-                "║                                             ║\n" +
-                "║                                             ║ \n" +
-                "║                                             ║    \n" +
-                "╠═════ ═══════╗          ╔════════════════════╣\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║ \n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║                  media        ║\n" +
-                "║   mc        ║          ║       markt        ║\n" +
-                "║   donalds   ║          ║                    ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║                        ║                    ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║\n" +
-                "║             ║          ║                    ║   \n" +
-                "╚═════════════╩══════════╩════════════════════╝");
+        System.out.println(readFloor("secondFloor.txt"));
 
     }
 
@@ -347,6 +296,26 @@ public class IO {
         }
         return input;
     }
+
+    /**
+     * This method is to print out my maps from files.
+     * @param filename for the filename which this method should read the files
+     * @return empty string
+     */
+    public String readFloor(String filename) {
+        try {
+            StringBuilder fileContent = new StringBuilder();
+            Scanner fileReader = new Scanner(new File("../ZurichMall/MallProject/maps" + filename));
+            while (fileReader.hasNextLine()) {
+                fileContent.append(fileReader.nextLine()).append("\n");
+            }
+            return fileContent.toString();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 
     public double getBudget() {
         return budget;

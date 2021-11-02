@@ -100,4 +100,7 @@ public class Manager {
         IO.outPutListInBox(new String[]{"total budget: " + io.getBudget()}, 2);
     }
 
+    public void setS(ShoppingCenter s) {
+        this.s = s;
+    }
 }
