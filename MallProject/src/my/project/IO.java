@@ -152,7 +152,7 @@ public class IO {
     public void move() {
         int selectMovement = 1;
         while (true) {
-            IO.outPutListInBox(new String[]{"[1] shopping", "[2] our stores", "[3] map", "[4] shop other floor", "[5] exit",}, 2);
+            IO.outPutListInBox(new String[]{"[1] shopping", "[2] our stores", "[3] map", "[4] change floor", "[5] exit",}, 2);
             selectMovement = readRangedInt(1, 5);
             switch (selectMovement) {
                 case 1 -> enterStore();
@@ -305,7 +305,7 @@ public class IO {
     public String readFloor(String filename) {
         try {
             StringBuilder fileContent = new StringBuilder();
-            Scanner fileReader = new Scanner(new File("../ZurichMall/MallProject/maps" + filename));
+            Scanner fileReader = new Scanner(new File("maps/" + filename));
             while (fileReader.hasNextLine()) {
                 fileContent.append(fileReader.nextLine()).append("\n");
             }
